@@ -1,0 +1,31 @@
+.form {
+  width: 100%;
+
+  max-width: 500px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.title {
+  padding-left: 6px;
+  margin-bottom: 16px;
+}
+
+.formBtn {
+  margin-top: 16px;
+  background-color: #3b82f680;
+  color: #fff;
+}
+
+.errorMsg {
+  font-size: 16px;
+  color: #ff0000;
+}
+
+.link {
+  margin-top: 24px;
+  text-decoration: none;
+}
