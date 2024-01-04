@@ -4,8 +4,8 @@ import { Input } from "../../../ui/Input/Input";
 import { initialValues, schema } from "./helpers";
 import { Button } from "../../../ui/button/Button";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { CountrySelect } from "./CountrySelect/CountrySelect";
+import { LocationInput } from "./LocationInput/LocationInput";
 
 //имя, фамилия, год рождения, место проживания страна улица  номер телефона
 
@@ -49,11 +49,9 @@ export const UserInfo = () => {
             value={values.country}
           /> */}
 
+          <LocationInput setFieldValue={setFieldValue} />
           <Button>Sign Up</Button>
           {error ? <span className={styles.errorMsg}>{error}</span> : null}
-          <Link to="/" className={styles.link}>
-            Sign In
-          </Link>
         </Form>
       )}
     </Formik>
