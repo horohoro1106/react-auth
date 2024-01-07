@@ -7,17 +7,9 @@ type InputProps = {
   name: string;
   placeholder: string;
   type?: string;
-  options?: Country[];
 };
 
-export function Input({
-  id,
-  label,
-  name,
-  placeholder,
-  type,
-  options,
-}: InputProps) {
+export function Input({ id, label, name, placeholder, type }: InputProps) {
   return (
     <div className={styles.inputContainer}>
       <label className={styles.label} htmlFor={id}>
@@ -29,7 +21,6 @@ export function Input({
         name={name}
         id={id}
         placeholder={placeholder}
-        options={options}
       />
       <ErrorMessage name={name}>
         {(error) => <span className={styles.errorMsg}>{error}</span>}
