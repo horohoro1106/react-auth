@@ -1,5 +1,6 @@
 import * as Yup from "yup";
-
+import { db, auth } from "../../../firebase";
+import { doc, setDoc, FirestoreError } from "firebase/firestore";
 export const initialValues = {
   firstName: "",
   lastName: "",
@@ -31,7 +32,36 @@ export const schema = Yup.object({
   location,
   phone,
 });
+export async function handleSubmit(
+  values: typeof initialValues,
+  setError: React.Dispatch<React.SetStateAction<string>>
+) {
+  setError("");
+  const userEmail = auth.currentUser?.email;
+  if (!userEmail) {
+    setError("User is not logged in");
+    return "User is not logged in";
+  }
+  try {
+    const userData = {
+      userEmail,
+      ...values,
+    };
+    const userRef = await doc(db, "users", userEmail);
+    await setDoc(userRef, userData);
+    console.log(
+      `user ${userEmail} created with this data: ${JSON.stringify(userData)}`
+    );
+  } catch (error: unknown) {
+    if (error instanceof FirestoreError) {
+      console.error("Firebase Error in handleSubmit:", error);
+      const errorMessage = error.message;
+      setError(errorMessage);
+      return errorMessage;
+    }
 
-export async function handleSubmit(values: typeof initialValues) {
-  console.log(values);
+    console.error("Unknown Error in handleSubmit:", error);
+    setError("An unknown error occurred");
+    return "An unknown error occurred";
+  }
 }

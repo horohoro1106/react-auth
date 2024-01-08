@@ -20,6 +20,14 @@
   color: #000;
 }
 
+.select {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #000;
+}
+
 .errorMsg {
   display: block;
   position: absolute;

@@ -1,14 +1,12 @@
 import { Form, Formik } from "formik";
 import styles from "../signin/SignIn.module.css";
 import { Input } from "../../../ui/Input/Input";
-import { initialValues, schema } from "./helpers";
+import { handleSubmit, initialValues, schema } from "./helpers";
 import { Button } from "../../../ui/button/Button";
 import { useState, useEffect } from "react";
 import { CountrySelect } from "./CountrySelect/CountrySelect";
 import { LocationInput } from "./LocationInput/LocationInput";
 import { PhoneInput } from "./PhoneInput/PhoneInput";
-
-//имя, фамилия, год рождения, место проживания страна улица  номер телефона
 
 export const UserInfo = () => {
   const [error, setError] = useState<string>("");
@@ -18,7 +16,7 @@ export const UserInfo = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => handleSubmit(values, setError)}
     >
       {({ setFieldValue, values }) => (
         <Form className={styles.form}>
@@ -42,15 +40,8 @@ export const UserInfo = () => {
             id="birthDate"
             placeholder="Enter date"
           />
-          {/* <CountrySelect
-            label="Select your country"
-            name="country"
-            placeholder="Select your country"
-            setFieldValue={setFieldValue}
-            value={values.country}
-          /> */}
-
-          {/* <LocationInput setFieldValue={setFieldValue} /> */}
+          <CountrySelect setFieldValue={setFieldValue} value={values.country} />
+          <LocationInput setFieldValue={setFieldValue} />
           <PhoneInput />
           <Button>Sign Up</Button>
           {error ? <span className={styles.errorMsg}>{error}</span> : null}
