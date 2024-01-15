@@ -2,12 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { NavigateFunction } from "react-router-dom";
 
-export const initialValues = {
-  email: "",
-  password: "",
-};
-
-export async function handleSubmit(
+export async function handleSignIn(
   email: string,
   password: string,
   setError: React.Dispatch<React.SetStateAction<string>>,

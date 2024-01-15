@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import styles from "../signin/SignIn.module.css";
-import { Input } from "../../../ui/Input/Input";
+import { Input } from "../../../ui/Input/InputField";
 import { handleSubmit, initialValues, schema } from "./helpers";
 import { Button } from "../../../ui/button/Button";
 import { useState, useEffect } from "react";

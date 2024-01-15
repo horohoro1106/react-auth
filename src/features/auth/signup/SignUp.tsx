@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import styles from "../signin/SignIn.module.css";
-import { Input } from "../../../ui/Input/Input";
+import { Input } from "../../../ui/Input/InputField";
 import { handleSubmit, initialValues, schema } from "./helpers";
 import { Button } from "../../../ui/button/Button";
 import { useState } from "react";
@@ -40,7 +40,7 @@ export const SignUp = () => {
         />
         <Button>Sign Up</Button>
         {error ? <span className={styles.errorMsg}>{error}</span> : null}
-        <Link to="/" className={styles.link}>
+        <Link to="/signin" className={styles.link}>
           Sign In
         </Link>
       </Form>
