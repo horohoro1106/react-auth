@@ -1,31 +1,34 @@
-import { UseControllerProps, useController } from "react-hook-form";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import styles from "./Input.module.css";
 
-type InputFieldProps = UseControllerProps<FormDatas> & {
+type InputFieldProps<T extends FieldValues> = {
+  register: UseFormRegister<T>;
   label: string;
-  name: string;
+  name: Path<T>;
   type?: string;
+  error: string | undefined;
 };
 
-export const InputField = (props: InputFieldProps) => {
-  const { label, name, control } = props;
-  const { field, fieldState } = useController({ control, name });
-
+export function InputField<T extends FieldValues>({
+  label,
+  register,
+  error,
+  name,
+  type = "text",
+}: InputFieldProps<T>) {
   return (
     <div className={styles.inputContainer}>
-      <label htmlFor={field.name} className={styles.label}>
+      <label htmlFor={name} className={styles.label}>
         {label}
       </label>
       <input
-        {...field}
-        type={props?.type ? props.type : "text"}
-        placeholder={props.name}
-        id={field.name}
+        {...register(name)}
+        type={type}
+        placeholder={label}
+        id={name}
         className={styles.input}
       />
-      {fieldState.error?.message ? (
-        <span className={styles.errorMsg}>{fieldState.error?.message}</span>
-      ) : null}
+      {error ? <span className={styles.errorMsg}>{error}</span> : null}
     </div>
   );
-};
+}

@@ -1,13 +1,7 @@
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { NavigateFunction } from "react-router-dom";
-import * as Yup from "yup";
-
-export const initialValues = {
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
+import * as yup from "yup";
 
 const regx = {
   email: /^\S+@\S+\.\S+$/,
@@ -19,11 +13,13 @@ const regx = {
   },
 };
 
-export const email = Yup.string()
-  .matches(regx.email, "Email should be in format example@mail.com")
-  .required("Enter email");
+const email = yup
+  .string()
+  .email("Email should be in format example@mail.com")
+  .required("You have to enter email");
 
-export const password = Yup.string()
+const password = yup
+  .string()
   .min(8, "Password must be atleast 8 characters long")
   .matches(regx.password.digit, "Your password must contain at least 1 digit")
   .matches(
@@ -40,17 +36,20 @@ export const password = Yup.string()
   )
   .required("Enter password");
 
-const confirmPassword = Yup.string()
-  .required("Confirm password")
-  .oneOf([Yup.ref("password")], "Passwords does not match");
+const confirmPassword = yup
+  .string()
+  .oneOf([yup.ref("password")], "Passwords does not match")
+  .required("Confirm password");
 
-export const schema = Yup.object().shape({
-  email,
-  password,
-  confirmPassword,
-});
+export const validationSchema = yup
+  .object({
+    email,
+    password,
+    confirmPassword,
+  })
+  .required();
 
-export async function handleSubmit(
+export async function handleSignUp(
   email: string,
   password: string,
   setError: React.Dispatch<React.SetStateAction<string>>,

@@ -1,6 +1,14 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { NavigateFunction } from "react-router-dom";
+import * as yup from "yup";
+
+export const validationSchema = yup
+  .object({
+    email: yup.string().email().required("You have to enter email"),
+    password: yup.string().required("You have to enter password"),
+  })
+  .required();
 
 export async function handleSignIn(
   email: string,

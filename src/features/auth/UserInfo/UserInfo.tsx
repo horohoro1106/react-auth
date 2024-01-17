@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import styles from "../signin/SignIn.module.css";
-import { Input } from "../../../ui/Input/InputField";
+/* import { Input } from "../../../ui/Input/InputField"; */
 import { handleSubmit, initialValues, schema } from "./helpers";
 import { Button } from "../../../ui/button/Button";
 import { useState, useEffect } from "react";
@@ -21,7 +21,7 @@ export const UserInfo = () => {
       {({ setFieldValue, values }) => (
         <Form className={styles.form}>
           <h2 className={styles.title}>Complete registration</h2>
-          <Input
+          {/*   <Input
             label="Your first name"
             name="firstName"
             id="firstName"
@@ -42,7 +42,7 @@ export const UserInfo = () => {
           />
           <CountrySelect setFieldValue={setFieldValue} value={values.country} />
           <LocationInput setFieldValue={setFieldValue} />
-          <PhoneInput />
+          <PhoneInput /> */}
           <Button>Sign Up</Button>
           {error ? <span className={styles.errorMsg}>{error}</span> : null}
         </Form>

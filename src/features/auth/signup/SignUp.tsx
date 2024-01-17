@@ -1,49 +1,56 @@
-import { Form, Formik } from "formik";
-import styles from "../signin/SignIn.module.css";
-import { Input } from "../../../ui/Input/InputField";
-import { handleSubmit, initialValues, schema } from "./helpers";
-import { Button } from "../../../ui/button/Button";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-export const SignUp = () => {
-  const [error, setError] = useState<string>("");
-  const navigate = useNavigate();
+import styles from "../signin/SignIn.module.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { handleSignUp, validationSchema } from "./helpers";
+import { InputField } from "../../../ui/Input/InputField";
+import { Button } from "../../../ui/button/Button";
+
+export function SignUp() {
+  const [error, setError] = useState(""); //shows errors after submit
+  const navigate = useNavigate(); //
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpFormData>({
+    resolver: yupResolver(validationSchema),
+  });
+
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={schema}
-      onSubmit={(values) =>
-        handleSubmit(values.email, values.password, setError, navigate)
-      }
+    <form
+      onSubmit={handleSubmit(({ email, password }) =>
+        handleSignUp(email, password, setError, navigate)
+      )}
+      className={styles.form}
     >
-      <Form className={styles.form}>
-        <h2 className={styles.title}>Create account</h2>
-        <Input
-          label="Your email"
-          name="email"
-          id="email"
-          placeholder="Your email"
-        />
-        <Input
-          label="Your password"
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Your password"
-        />
-        <Input
-          label="Confirm password"
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          placeholder="Confirm password"
-        />
-        <Button>Sign Up</Button>
-        {error ? <span className={styles.errorMsg}>{error}</span> : null}
-        <Link to="/signin" className={styles.link}>
-          Sign In
-        </Link>
-      </Form>
-    </Formik>
+      <h2 className={styles.title}>Log In</h2>
+      <InputField<SignUpFormData>
+        register={register}
+        label="Email"
+        name="email"
+        error={errors.email?.message}
+      />
+      <InputField<SignUpFormData>
+        register={register}
+        label="Password"
+        type="password"
+        name="password"
+        error={errors.password?.message}
+      />
+      <InputField<SignUpFormData>
+        register={register}
+        label="Confirm Password"
+        type="password"
+        name="confirmPassword"
+        error={errors.confirmPassword?.message}
+      />
+      <Button>Sign In</Button>
+      {error ? <span className={styles.errorMsg}>{error}</span> : null}
+      <Link to="/signup" className={styles.link}>
+        Create account
+      </Link>
+    </form>
   );
-};
+}

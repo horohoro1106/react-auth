@@ -5,10 +5,14 @@ type Country = {
 };
 
 type SignInFormData = {
-  Email: string;
-  Password: string;
+  email: string;
+  password: string;
 };
 
-type SignUpFormData = { Email: string; Password: string };
+type SignUpFormData = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 type FormDatas = SignInFormData | SignUpFormData;
