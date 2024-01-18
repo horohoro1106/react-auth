@@ -15,4 +15,11 @@ type SignUpFormData = {
   confirmPassword: string;
 };
 
-type FormDatas = SignInFormData | SignUpFormData;
+type UserInfoData = {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  country: string;
+  /*  location: string;
+  phone: string; */
+};

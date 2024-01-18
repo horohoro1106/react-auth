@@ -1,14 +1,27 @@
 import * as Yup from "yup";
 import { db, auth } from "../../../firebase";
 import { doc, setDoc, FirestoreError } from "firebase/firestore";
-export const initialValues = {
+
+const initialValues = {
   firstName: "",
   lastName: "",
   birthDate: "",
-  country: "ua",
-  location: "",
-  phone: "",
+  country: "",
+  /* location: "",
+  phone: "", */
 };
+
+export async function getDefaultValues() {
+  try {
+    const response = await fetch("https://ipapi.co/json/");
+    const data = await response.json();
+    initialValues.country = data.country || "";
+  } catch (error) {
+    console.error("Error getting user country:", error);
+  }
+  return initialValues;
+}
+getDefaultValues();
 
 const regx = {
   phone:
@@ -19,20 +32,20 @@ const firstName = Yup.string().required("First name is required");
 const lastName = Yup.string().required("Last name is required");
 const birthDate = Yup.string().required("Birth date is required");
 const country = Yup.string().required("Country is required");
-const location = Yup.string().required("Location is required");
+/*c const location = Yup.string().required("Location is required");
 const phone = Yup.string()
   .matches(regx.phone, "Enter valid number")
-  .required("Phone is required");
+  .required("Phone is required"); */
 
-export const schema = Yup.object({
+export const validationSchema = Yup.object({
   firstName,
   lastName,
   birthDate,
   country,
-  location,
-  phone,
+  /* location,
+  phone, */
 });
-export async function handleSubmit(
+export async function handleUserInfo(
   values: typeof initialValues,
   setError: React.Dispatch<React.SetStateAction<string>>
 ) {
