@@ -2,13 +2,13 @@ import * as Yup from "yup";
 import { db, auth } from "../../../firebase";
 import { doc, setDoc, FirestoreError } from "firebase/firestore";
 
-const initialValues = {
+export const initialValues = {
   firstName: "",
   lastName: "",
   birthDate: "",
   country: "",
-  /* location: "",
-  phone: "", */
+  //location: "",
+  phone: "",
 };
 
 export async function getDefaultValues() {
@@ -32,18 +32,18 @@ const firstName = Yup.string().required("First name is required");
 const lastName = Yup.string().required("Last name is required");
 const birthDate = Yup.string().required("Birth date is required");
 const country = Yup.string().required("Country is required");
-/*c const location = Yup.string().required("Location is required");
+//const location = Yup.string().required("Location is required");
 const phone = Yup.string()
   .matches(regx.phone, "Enter valid number")
-  .required("Phone is required"); */
+  .required("Phone is required");
 
 export const validationSchema = Yup.object({
   firstName,
   lastName,
   birthDate,
   country,
-  /* location,
-  phone, */
+  // location,
+  phone,
 });
 export async function handleUserInfo(
   values: typeof initialValues,

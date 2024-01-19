@@ -20,6 +20,6 @@ type UserInfoData = {
   lastName: string;
   birthDate: string;
   country: string;
-  /*  location: string;
-  phone: string; */
+  //location: string;
+  phone: string;
 };

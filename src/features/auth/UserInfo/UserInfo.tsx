@@ -1,5 +1,5 @@
 import styles from "../signin/SignIn.module.css";
-import { getDefaultValues, validationSchema } from "./helpers";
+import { getDefaultValues, initialValues, validationSchema } from "./helpers";
 import { Button } from "../../../ui/button/Button";
 import { useState } from "react";
 import { CountrySelect } from "./CountrySelect/CountrySelect";
@@ -16,6 +16,8 @@ export const UserInfo = () => {
     control,
     handleSubmit,
     watch,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<UserInfoData>({
     resolver: yupResolver(validationSchema),
@@ -48,8 +50,12 @@ export const UserInfo = () => {
         error={errors.birthDate?.message}
       />
       <CountrySelect control={control} name="country" />
-      {/*  <LocationInput setFieldValue={setFieldValue} />
-          <PhoneInput /> */}
+      {/*   <LocationInput
+        register={register}
+        setValue={setValue}
+        error={errors.location?.message}
+      /> */}
+      <PhoneInput getValues={getValues} control={control} name="phone" />
       <Button>Sign Up</Button>
       {error ? <span className={styles.errorMsg}>{error}</span> : null}
     </form>
