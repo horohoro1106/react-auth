@@ -3,6 +3,7 @@ import { App } from "./App.tsx";
 import { SignIn } from "./features/auth/signin/SignIn.tsx";
 import { SignUp } from "./features/auth/signup/SignUp.tsx";
 import { UserInfo } from "./features/auth/UserInfo/UserInfo.tsx";
+import { SignUpComplete } from "./ui/signupComplete/SignUpComplete.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -18,8 +19,12 @@ export const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "/userinfo",
+        path: "/user-info",
         element: <UserInfo />,
+      },
+      {
+        path: "/signup-complete",
+        element: <SignUpComplete />,
       },
     ],
   },

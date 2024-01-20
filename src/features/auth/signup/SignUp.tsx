@@ -9,7 +9,7 @@ import { Button } from "../../../ui/button/Button";
 
 export function SignUp() {
   const [error, setError] = useState(""); //shows errors after submit
-  const navigate = useNavigate(); //
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,

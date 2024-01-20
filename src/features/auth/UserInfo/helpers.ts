@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import { db, auth } from "../../../firebase";
 import { doc, setDoc, FirestoreError } from "firebase/firestore";
+import { NavigateFunction } from "react-router-dom";
 
 export const initialValues = {
   firstName: "",
@@ -47,7 +48,8 @@ export const validationSchema = Yup.object({
 });
 export async function handleUserInfo(
   values: typeof initialValues,
-  setError: React.Dispatch<React.SetStateAction<string>>
+  setError: React.Dispatch<React.SetStateAction<string>>,
+  navigate: NavigateFunction
 ) {
   setError("");
   const userEmail = auth.currentUser?.email;
@@ -65,6 +67,7 @@ export async function handleUserInfo(
     console.log(
       `user ${userEmail} created with this data: ${JSON.stringify(userData)}`
     );
+    navigate("/signup-complete");
   } catch (error: unknown) {
     if (error instanceof FirestoreError) {
       console.error("Firebase Error in handleSubmit:", error);

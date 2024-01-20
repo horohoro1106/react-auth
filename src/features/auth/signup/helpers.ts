@@ -4,7 +4,6 @@ import { NavigateFunction } from "react-router-dom";
 import * as yup from "yup";
 
 const regx = {
-  email: /^\S+@\S+\.\S+$/,
   password: {
     digit: /[0-9]/,
     minLowercase: /[a-z]/,
@@ -59,7 +58,7 @@ export async function handleSignUp(
   await createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       // Signed up
-      navigate("/userinfo");
+      navigate("/user-info");
     })
     .catch((error) => {
       const errorCode = error.code;

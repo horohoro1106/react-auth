@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 export function SignIn() {
   const [error, setError] = useState(""); //shows errors after submit
-  const navigate = useNavigate(); //
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,

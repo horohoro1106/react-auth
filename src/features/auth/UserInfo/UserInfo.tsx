@@ -8,9 +8,11 @@ import { PhoneInput } from "./PhoneInput/PhoneInput";
 import { InputField } from "../../../ui/Input/InputField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 
 export const UserInfo = () => {
   const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
   const {
     register,
     control,
@@ -26,7 +28,9 @@ export const UserInfo = () => {
   return (
     <form
       className={styles.form}
-      onSubmit={handleSubmit((data) => handleUserInfo(data, setError))}
+      onSubmit={handleSubmit((data) =>
+        handleUserInfo(data, setError, navigate)
+      )}
     >
       <h2 className={styles.title}>Complete registration</h2>
       <InputField<UserInfoData>
