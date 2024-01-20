@@ -7,7 +7,7 @@ export const initialValues = {
   lastName: "",
   birthDate: "",
   country: "",
-  //location: "",
+  location: "",
   phone: "",
 };
 
@@ -32,7 +32,7 @@ const firstName = Yup.string().required("First name is required");
 const lastName = Yup.string().required("Last name is required");
 const birthDate = Yup.string().required("Birth date is required");
 const country = Yup.string().required("Country is required");
-//const location = Yup.string().required("Location is required");
+const location = Yup.string().required("Location is required");
 const phone = Yup.string()
   .matches(regx.phone, "Enter valid number")
   .required("Phone is required");
@@ -42,7 +42,7 @@ export const validationSchema = Yup.object({
   lastName,
   birthDate,
   country,
-  // location,
+  location,
   phone,
 });
 export async function handleUserInfo(

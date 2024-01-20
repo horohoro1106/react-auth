@@ -2,7 +2,7 @@ import { PhoneInput as UsersPhone } from "react-international-phone";
 import "react-international-phone/style.css";
 import styles from "../../../../ui/Input/Input.module.css";
 import { Control, UseFormGetValues, useController } from "react-hook-form";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { PhoneInputRefType } from "./types";
 
 type PhoneInputProps = {
@@ -16,8 +16,15 @@ export function PhoneInput({ control, name, getValues }: PhoneInputProps) {
     field,
     fieldState: { error },
   } = useController({ control, name });
+  //getting users country and setting country phone code
+  const country = getValues("country");
   const ref = useRef<PhoneInputRefType>(null);
-  ref.current?.setCountry(getValues("country").toLowerCase());
+  useEffect(
+    function () {
+      if (country) ref.current?.setCountry(country?.toLowerCase());
+    },
+    [country, getValues]
+  );
 
   return (
     <div className={styles.inputContainer}>
@@ -34,6 +41,7 @@ export function PhoneInput({ control, name, getValues }: PhoneInputProps) {
           className: styles.input,
         }}
         onChange={(phone) => {
+          field.onChange(phone);
           console.log(`phone changed ${phone}`);
         }}
       />
