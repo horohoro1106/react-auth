@@ -42,7 +42,6 @@ export function PhoneInput({ control, name, getValues }: PhoneInputProps) {
         }}
         onChange={(phone) => {
           field.onChange(phone);
-          console.log(`phone changed ${phone}`);
         }}
       />
       {error?.message ? (
